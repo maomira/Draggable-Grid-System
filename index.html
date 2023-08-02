@@ -20,22 +20,24 @@
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.gridster/0.5.6/jquery.gridster.min.js"></script>
   <script>
-    $(function() {
-      $(".gridster ul").gridster({
-        widget_margins: [10, 10],
-        widget_base_dimensions: [140, 140],
-        autogenerate_stylesheet: true,
-        resize: {
-          enabled: true,
-          stop: function(e, ui, $widget) {
-            var img = $widget.find('img');
-            var imgWidth = img.width();
-            var imgHeight = img.height();
-            $widget.attr('data-sizex', Math.ceil(imgWidth / 140));
-            $widget.attr('data-sizey', Math.ceil(imgHeight / 140));
-          }
-        }
-      });
+$(function() {
+  $(".gridster ul").gridster({
+    widget_margins: [10, 10],
+    widget_base_dimensions: [1, 1], // Set base dimensions to [1, 1] or any small value
+    autogrow_cols: true,
+    resize: {
+      enabled: true,
+      stop: function (e, ui, $widget) {
+        // Calculate the new data-sizex and data-sizey based on the widget's content
+        var width = $widget.width();
+        var height = $widget.height();
+        $widget.attr("data-sizex", Math.round(width));
+        $widget.attr("data-sizey", Math.round(height));
+      }
+    }
+  });
+});
+
 
       // Load the images and adjust dimensions
       const liElements = $(".gridster ul li");
